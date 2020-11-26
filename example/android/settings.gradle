@@ -1,0 +1,5 @@
+rootProject.name = 'example'
+include ':rn-bluetooth-printer' // <= Add this line
+project(':rn-bluetooth-printer').projectDir = new File(rootProject.projectDir, '../node_modules/rn-bluetooth-printer/android') // <= Add this line
+apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app'
