@@ -50,11 +50,11 @@ RCTPromiseRejectBlock pendingReject;
 {
     return dispatch_get_main_queue();
 }
+
 + (BOOL)requiresMainQueueSetup
 {
     return YES;
 }
-
 
 /**
  * Exports the constants to javascritp.
@@ -75,14 +75,6 @@ RCT_EXPORT_METHOD(setWidth:(int) width)
     self.deviceWidth = width;
 }
 
-//public void printerInit(final Promise promise){
-//    if(sendDataByte(PrinterCommand.POS_Set_PrtInit())){
-//        promise.resolve(null);
-//    }else{
-//        promise.reject("COMMAND_NOT_SEND");
-//    }
-//}
-
 RCT_EXPORT_METHOD(printerInit:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -101,7 +93,7 @@ RCT_EXPORT_METHOD(printerInit:(RCTPromiseResolveBlock)resolve
 }
 
 //{GS, 'L', 0x00 , 0x00 }
-// data[2] = (byte) (left % 100);
+//data[2] = (byte) (left % 100);
 //data[3] = (byte) (left / 100);
 RCT_EXPORT_METHOD(printerLeftSpace:(int) sp
                   withResolver:(RCTPromiseResolveBlock)resolve
@@ -154,7 +146,6 @@ RCT_EXPORT_METHOD(printerUnderLine:(int)sp withResolver:(RCTPromiseResolveBlock)
     }else{
         reject(@"COMMAND_NOT_SEND",@"COMMAND_NOT_SEND",nil);
     }
-    
 }
 
 RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) options
@@ -164,11 +155,11 @@ RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) optio
           reject(@"COMMAND_NOT_SEND",@"COMMAND_NOT_SEND",nil);
     }else{
         @try{
-    //encoding:'GBK',
-    //codepage:0,
-    //widthtimes:0,
-    //heigthtimes:0,
-    //fonttype:1
+        //encoding:'GBK',
+        //codepage:0,
+        //widthtimes:0,
+        //heigthtimes:0,
+        //fonttype:1
         NSString *encodig = [options valueForKey:@"encoding"];
         if(!encodig) encodig=@"GBK";
             NSInteger codePage = [[options valueForKey:@"codepage"] integerValue];NSLog(@"Got codepage from options: %ld",codePage);
@@ -189,6 +180,7 @@ RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) optio
         }
     }
 }
+
 -(NSStringEncoding) toNSEncoding:(NSString *)encoding
 {NSLog(@"encoding: %@",encoding);
     NSStringEncoding nsEncoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
@@ -198,6 +190,7 @@ RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) optio
     
     return nsEncoding;
 }
+
 -(void) textPrint:(NSString *) text
        inEncoding:(NSString *) encoding
      withCodePage:(NSInteger) codePage
@@ -232,14 +225,14 @@ RCT_EXPORT_METHOD(printText:(NSString *) text withOptions:(NSDictionary *) optio
         [toSend appendBytes:ESC_FS length:sizeof(ESC_FS)];
         [toSend appendBytes:&fourtySix length:sizeof(fourtySix)];
     }
-//    escM:{ESC, 'M', 0x00 };
+    //    escM:{ESC, 'M', 0x00 };
     [toSend appendBytes:ESC length:sizeof(ESC)];
     [toSend appendBytes:M length:sizeof(M)];
     [toSend appendBytes:&fontType length:sizeof(fontType)];
     // text data
     [toSend appendData:bytes];
     //LF
-   // [toSend appendBytes:&NL length:sizeof(NL)];
+    // [toSend appendBytes:&NL length:sizeof(NL)];
   
     NSLog(@"Goting to write text : %@",text);
     NSLog(@"With data: %@",toSend);
@@ -250,8 +243,7 @@ RCT_EXPORT_METHOD(rotate:(NSInteger *)rotate
                   withResolver:(RCTPromiseResolveBlock) resolve rejecter:(RCTPromiseRejectBlock) reject)
 {
     if(RNBluetoothManager.isConnected){
-        //    //取消/选择90度旋转打印
-       // public static byte[] ESC_V = new byte[] {ESC, 'V', 0x00 };
+        // public static byte[] ESC_V = new byte[] {ESC, 'V', 0x00 };
         NSMutableData *data = [[NSMutableData alloc] init];
         Byte rotateBytes[] = {(int)rotate};
         [data appendBytes:ESC length:1];
@@ -263,11 +255,6 @@ RCT_EXPORT_METHOD(rotate:(NSInteger *)rotate
     }else{
            reject(@"COMMAND_NOT_SEND",@"COMMAND_NOT_SEND",nil);
     }
-//        if(sendDataByte(PrinterCommand.POS_Set_Rotate(rotate))){
-//            promise.resolve(null);
-//        }else{
-//            promise.reject("COMMAND_NOT_SEND");
-//        }
 }
 
 RCT_EXPORT_METHOD(printerAlign:(NSInteger *) align
@@ -313,18 +300,7 @@ RCT_EXPORT_METHOD(printColumn:(NSArray *)columnWidths
             if(!heigthTime) heigthTime =0;
             NSInteger fontType = [[options valueForKey:@"fontType"] integerValue];
             if(!fontType) fontType = 0;
-          /**
-                 * [column1-1,
-                 * column1-2,
-                 * column1-3 ... column1-n]
-                 * ,
-                 *  [column2-1,
-                 * column2-2,
-                 * column2-3 ... column2-n]
-                 *
-                 * ...
-                 *
-                 */
+
             NSMutableArray *table =[[NSMutableArray alloc] init];
             
                 /**splits the column text to few rows and applies the alignment **/
@@ -386,9 +362,7 @@ RCT_EXPORT_METHOD(printColumn:(NSArray *)columnWidths
                             startIdx =(int)(width - s.shorter-[ss length]);
                         }
                         NSInteger length =[ss length];
-//                        if(length+startIdx>[empty length]){
-//                            length = [empty length]-startIdx;
-//                        }
+
                         NSLog(@"empty(length: %lu) replace from %d length %lu with str:%@)",[empty length],startIdx,length,ss);
                         [empty replaceCharactersInRange:NSMakeRange(startIdx, length) withString:ss];
                         [formated addObject:empty];
@@ -454,10 +428,6 @@ RCT_EXPORT_METHOD(setBlob:(NSInteger) sp
                   withResolver:(RCTPromiseResolveBlock) resolve
                   rejecter:(RCTPromiseRejectBlock) reject)
 {
-    //\\    //选择/取消加粗指令
-//    public static byte[] ESC_G = new byte[] {ESC, 'G', 0x00 };
-//    public static byte[] ESC_E = new byte[] {ESC, 'E', 0x00 };
-    //E+G
     NSMutableData *toSend = [[NSMutableData alloc] init];
     [toSend appendBytes:&ESC length:sizeof(ESC)];
     [toSend appendBytes:&G length:sizeof(G)];
@@ -592,10 +562,7 @@ RCT_EXPORT_METHOD(printBarCode:(NSString *) str withType:(NSInteger)
     pendingResolve = resolve;
     [RNBluetoothManager writeValue:toPrint withDelegate:self];
 }
-//  L:1,
-//M:0,
-//Q:3,
-//H:2
+
 -(ZXQRCodeErrorCorrectionLevel *)findCorrectionLevel:(NSInteger)level
 {
     switch (level) {

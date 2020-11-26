@@ -2,9 +2,6 @@
 //  RNBluetoothTscPrinter.m
 //  RNBluetoothEscposPrinter
 //
-//  Created by januslo on 2018/10/1.
-//  Copyright © 2018年 Facebook. All rights reserved.
-//
 
 #import <Foundation/Foundation.h>
 #import "RNBluetoothTscPrinter.h"
@@ -22,13 +19,14 @@ NSInteger now;
 {
     return dispatch_get_main_queue();
 }
+
 + (BOOL)requiresMainQueueSetup
 {
     return YES;
 }
 
 RCT_EXPORT_MODULE(BluetoothTscPrinter);
-//printLabel(final ReadableMap options, final Promise promise)
+
 RCT_EXPORT_METHOD(printLabel:(NSDictionary *) options withResolve:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 {
@@ -94,7 +92,7 @@ RCT_EXPORT_METHOD(printLabel:(NSDictionary *) options withResolve:(RCTPromiseRes
         }
     }
 
-  //images
+    //images
         for (int i = 0; images && i < [images count]; i++) {
             NSDictionary *img = [images objectAtIndex:i];
             NSInteger x = [[img valueForKey:@"x"] integerValue];
@@ -121,7 +119,7 @@ RCT_EXPORT_METHOD(printLabel:(NSDictionary *) options withResolve:(RCTPromiseRes
     }
 
     //BarCode
-   for (int i = 0; barCodes && i < [barCodes count]; i++) {
+    for (int i = 0; barCodes && i < [barCodes count]; i++) {
        NSDictionary *bar = [barCodes objectAtIndex:i];
        NSInteger x = [[bar valueForKey:@"x"] integerValue];
        NSInteger y = [[bar valueForKey:@"y"] integerValue];
