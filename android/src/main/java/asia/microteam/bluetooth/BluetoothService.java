@@ -23,10 +23,10 @@ public class BluetoothService {
     private static final String TAG = "BluetoothService";
     private static final boolean DEBUG = true;
 
-
     // Name for the SDP record when creating server socket
     private static final String NAME = "BTPrinter";
-    //UUID must be this
+
+    // UUID must be this
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
@@ -41,7 +41,6 @@ public class BluetoothService {
     // public static final int STATE_LISTEN = 1;     // now listening for incoming connections //feathure removed.
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-
 
     public static final int MESSAGE_STATE_CHANGE = 4;
     public static final int MESSAGE_READ = 5;
@@ -68,7 +67,6 @@ public class BluetoothService {
     public BluetoothService(Context context) {
         mAdapter = BluetoothAdapter.getDefaultAdapter();
         mState = STATE_NONE;
-
     }
 
     public void addStateObserver(BluetoothServiceStateObserver observer) {
@@ -115,7 +113,6 @@ public class BluetoothService {
     public synchronized int getState() {
         return mState;
     }
-
 
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
@@ -350,8 +347,7 @@ public class BluetoothService {
         }
     }
 
-
-    //Method to get the address of the last connected device
+    // Method to get the address of the last connected device
     public String getLastConnectedDeviceAddress() {
         return mLastConnectedDeviceAddress;
     }

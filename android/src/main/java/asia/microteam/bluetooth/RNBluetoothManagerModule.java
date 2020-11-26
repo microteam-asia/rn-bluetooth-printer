@@ -1,6 +1,5 @@
 package asia.microteam.bluetooth;
 
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -28,9 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-/**
- * Created by januslo on 2018/9/22.
- */
+
 public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         implements ActivityEventListener, BluetoothServiceStateObserver {
 
@@ -43,7 +40,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
     public static final String EVENT_UNABLE_CONNECT = "EVENT_UNABLE_CONNECT";
     public static final String EVENT_CONNECTED = "EVENT_CONNECTED";
     public static final String EVENT_BLUETOOTH_NOT_SUPPORT = "EVENT_BLUETOOTH_NOT_SUPPORT";
-
 
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE = 1;
@@ -118,7 +114,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         return mBluetoothAdapter;
     }
 
-
     @ReactMethod
     public void enableBluetooth(final Promise promise) {
         BluetoothAdapter adapter = this.getBluetoothAdapter();
@@ -141,7 +136,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                     obj.put("address", d.getAddress());
                     pairedDeivce.pushString(obj.toString());
                 } catch (Exception e) {
-                    //ignore.
                 }
             }
             Log.d(TAG, "ble Enabled");
@@ -177,12 +171,10 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             cancelDisCovery();
             int permissionChecked = ContextCompat.checkSelfPermission(reactContext, android.Manifest.permission.ACCESS_FINE_LOCATION);
             if (permissionChecked == PackageManager.PERMISSION_DENIED) {
-                // // TODO: 2018/9/21
                 ActivityCompat.requestPermissions(reactContext.getCurrentActivity(),
                         new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                         1);
             }
-
 
             pairedDeivce = new JSONArray();
             foundDevice = new JSONArray();
@@ -194,7 +186,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                     obj.put("address", d.getAddress());
                     pairedDeivce.put(obj);
                 } catch (Exception e) {
-                    //ignore.
                 }
             }
 
@@ -237,7 +228,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         } else {
             promise.reject("BT NOT ENABLED");
         }
-
 	}
 
     @ReactMethod
@@ -250,20 +240,10 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         } else {
             promise.reject("BT NOT ENABLED");
         }
-
     }
 
-
-    /*
-    // Constants that indicate the current connection state
-    public static final int STATE_NONE = 0;       // we're doing nothing
-    // public static final int STATE_LISTEN = 1;     // now listening for incoming connections //feathure removed.
-    public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
-    public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-*/
     @ReactMethod
     public void isDeviceConnected(final Promise promise) {
-
         Boolean isConnected = true;
 
         if (mService != null) {
@@ -288,20 +268,15 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
         }
     }
 
-
-
     /* Return the address of the currently connected device */
     @ReactMethod
     public void getConnectedDeviceAddress(final Promise promise) {
         if (mService!=null){
             promise.resolve(mService.getLastConnectedDeviceAddress());
         }
-
     }
 
-
-
-        private void unpairDevice(BluetoothDevice device) {
+    private void unpairDevice(BluetoothDevice device) {
         try {
             Method m = device.getClass()
                     .getMethod("removeBond", (Class[]) null);
@@ -319,10 +294,8 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
             }
             Log.d(TAG, "Discover canceled");
         } catch (Exception e) {
-            //ignore
         }
     }
-
 
     @Override
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
@@ -360,7 +333,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                                 obj.put("address", d.getAddress());
                                 pairedDeivce.pushString(obj.toString());
                             } catch (Exception e) {
-                                //ignore.
                             }
                         }
                         promise.resolve(pairedDeivce);
@@ -382,14 +354,13 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
 
     @Override
     public void onNewIntent(Intent intent) {
-
+        // TODO
     }
 
     @Override
     public String getName() {
         return "BluetoothManager";
     }
-
 
     private boolean objectFound(JSONObject obj) {
         boolean found = false;
@@ -426,7 +397,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                         deviceFound.put("name", device.getName());
                         deviceFound.put("address", device.getAddress());
                     } catch (Exception e) {
-                        //ignore
                     }
                     if (!objectFound(deviceFound)) {
                         foundDevice.put(deviceFound);
@@ -448,7 +418,6 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                         result.put("found", foundDevice);
                         promise.resolve(result.toString());
                     } catch (Exception e) {
-                        //ignore
                     }
                     WritableMap params = Arguments.createMap();
                     params.putString("paired", pairedDeivce.toString());
@@ -482,27 +451,19 @@ public class RNBluetoothManagerModule extends ReactContextBaseJavaModule
                     Log.d(TAG, "Promise Resolve.");
                     p.resolve(mConnectedDeviceName);
                 }
-
                 break;
             }
             case MESSAGE_CONNECTION_LOST: {
-                //Connection lost should not be the connect result.
-                // Promise p = promiseMap.remove(PROMISE_CONNECT);
-                // if (p == null) {
                 emitRNEvent(EVENT_CONNECTION_LOST, null);
-                // } else {
-                //   p.reject("Device connection was lost");
-                //}
                 break;
             }
-            case MESSAGE_UNABLE_CONNECT: {     //无法连接设备
+            case MESSAGE_UNABLE_CONNECT: {
                 Promise p = promiseMap.remove(PROMISE_CONNECT);
                 if (p == null) {
                     emitRNEvent(EVENT_UNABLE_CONNECT, null);
                 } else {
                     p.reject("Unable to connect device");
                 }
-
                 break;
             }
             default:
