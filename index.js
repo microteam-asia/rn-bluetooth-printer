@@ -24,6 +24,7 @@ BluetoothTscPrinter.DENSITY = {
   DNESITY14: 14,
   DNESITY15: 15,
 };
+
 BluetoothTscPrinter.BARCODETYPE = {
   CODE128: '128',
   CODE128M: '128M',
@@ -55,6 +56,7 @@ BluetoothTscPrinter.BARCODETYPE = {
   ITF14: 'ITF14',
   EAN14: 'EAN14',
 };
+
 BluetoothTscPrinter.FONTTYPE = {
   FONT_1: '1',
   FONT_2: '2',
@@ -68,18 +70,21 @@ BluetoothTscPrinter.FONTTYPE = {
   TRADITIONAL_CHINESE: 'TST24.BF2',
   KOREAN: 'K',
 };
+
 BluetoothTscPrinter.EEC = {
   LEVEL_L: 'L',
   LEVEL_M: 'M',
   LEVEL_Q: 'Q',
   LEVEL_H: 'H',
 };
+
 BluetoothTscPrinter.ROTATION = {
   ROTATION_0: 0,
   ROTATION_90: 90,
   ROTATION_180: 180,
   ROTATION_270: 270,
 };
+
 BluetoothTscPrinter.FONTMUL = {
   MUL_1: 1,
   MUL_2: 2,
@@ -92,21 +97,25 @@ BluetoothTscPrinter.FONTMUL = {
   MUL_9: 9,
   MUL_10: 10,
 };
+
 BluetoothTscPrinter.BITMAP_MODE = {
   OVERWRITE: 0,
   OR: 1,
   XOR: 2,
 };
+
 BluetoothTscPrinter.PRINT_SPEED = {
   SPEED1DIV5: 1,
   SPEED2: 2,
   SPEED3: 3,
   SPEED4: 4,
 };
+
 BluetoothTscPrinter.TEAR = {
   ON: 'ON',
   OFF: 'OFF',
 };
+
 BluetoothTscPrinter.READABLE = {
   DISABLE: 0,
   EANBLE: 1,
@@ -130,10 +139,12 @@ BluetoothEscposPrinter.BARCODETYPE = {
   CODE93: 72, //1<=n<=255
   CODE128: 73, //2<=n<=255
 };
+
 BluetoothEscposPrinter.ROTATION = {
   OFF: 0,
   ON: 1,
 };
+
 BluetoothEscposPrinter.ALIGN = {
   LEFT: 0,
   CENTER: 1,

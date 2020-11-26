@@ -1,15 +1,15 @@
 
-package cn.jystudio.bluetooth.escpos;
+package asia.microteam.bluetooth.escpos;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.util.Log;
-import cn.jystudio.bluetooth.BluetoothService;
-import cn.jystudio.bluetooth.BluetoothServiceStateObserver;
-import cn.jystudio.bluetooth.escpos.command.sdk.Command;
-import cn.jystudio.bluetooth.escpos.command.sdk.PrintPicture;
-import cn.jystudio.bluetooth.escpos.command.sdk.PrinterCommand;
+import asia.microteam.bluetooth.BluetoothService;
+import asia.microteam.bluetooth.BluetoothServiceStateObserver;
+import asia.microteam.bluetooth.escpos.command.sdk.Command;
+import asia.microteam.bluetooth.escpos.command.sdk.PrintPicture;
+import asia.microteam.bluetooth.escpos.command.sdk.PrinterCommand;
 import com.facebook.react.bridge.*;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;

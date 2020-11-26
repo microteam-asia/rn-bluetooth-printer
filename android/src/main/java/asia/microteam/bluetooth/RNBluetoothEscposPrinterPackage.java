@@ -1,12 +1,12 @@
 
-package cn.jystudio.bluetooth;
+package asia.microteam.bluetooth;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import cn.jystudio.bluetooth.escpos.RNBluetoothEscposPrinterModule;
-import cn.jystudio.bluetooth.tsc.RNBluetoothTscPrinterModule;
+import asia.microteam.bluetooth.escpos.RNBluetoothEscposPrinterModule;
+import asia.microteam.bluetooth.tsc.RNBluetoothTscPrinterModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;

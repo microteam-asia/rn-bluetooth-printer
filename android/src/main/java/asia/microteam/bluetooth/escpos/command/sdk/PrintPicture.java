@@ -1,4 +1,4 @@
-package cn.jystudio.bluetooth.escpos.command.sdk;
+package asia.microteam.bluetooth.escpos.command.sdk;
 
 import android.graphics.*;
 

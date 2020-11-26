@@ -1,8 +1,8 @@
-package cn.jystudio.bluetooth.tsc;
+package asia.microteam.bluetooth.tsc;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-import cn.jystudio.bluetooth.escpos.command.sdk.PrintPicture;
+import asia.microteam.bluetooth.escpos.command.sdk.PrintPicture;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Vector;

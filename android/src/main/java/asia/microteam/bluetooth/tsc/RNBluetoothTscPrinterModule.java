@@ -1,10 +1,10 @@
-package cn.jystudio.bluetooth.tsc;
+package asia.microteam.bluetooth.tsc;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import cn.jystudio.bluetooth.BluetoothService;
-import cn.jystudio.bluetooth.BluetoothServiceStateObserver;
+import asia.microteam.bluetooth.BluetoothService;
+import asia.microteam.bluetooth.BluetoothServiceStateObserver;
 import com.facebook.react.bridge.*;
 
 import java.util.Map;

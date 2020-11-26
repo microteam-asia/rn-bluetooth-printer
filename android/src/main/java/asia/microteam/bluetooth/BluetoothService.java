@@ -1,5 +1,5 @@
 
-package cn.jystudio.bluetooth;
+package asia.microteam.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
