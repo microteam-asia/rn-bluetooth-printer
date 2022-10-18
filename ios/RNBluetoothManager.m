@@ -16,7 +16,7 @@ NSString *EVENT_UNABLE_CONNECT=@"EVENT_UNABLE_CONNECT";
 NSString *EVENT_CONNECTED=@"EVENT_CONNECTED";
 static NSArray<CBUUID *> *supportServices = nil;
 static NSDictionary *writeableCharactiscs = nil;
-bool hasListeners;
+bool isHasListeners;
 static CBPeripheral *connected;
 static RNBluetoothManager *instance;
 static NSObject<WriteDataToBleDelegate> *writeDataDelegate;// delegate of write data resule;
@@ -43,13 +43,13 @@ static NSTimer *timer;
 
 // Will be called when this module's first listener is added.
 -(void)startObserving {
-    hasListeners = YES;
+    isHasListeners = YES;
     // Set up any upstream listeners or background tasks as necessary
 }
 
 // Will be called when this module's last listener is removed, or on dealloc.
 -(void)stopObserving {
-    hasListeners = NO;
+    isHasListeners = NO;
     // Remove upstream listeners, stop unnecessary background tasks
 }
 
@@ -142,7 +142,7 @@ RCT_EXPORT_METHOD(scanDevices:(RCTPromiseResolveBlock)resolve
                 self.foundDevices = [[NSMutableDictionary alloc] init];
             }
             [self.foundDevices addEntriesFromDictionary:peripheralStored];
-            if(hasListeners){
+            if(isHasListeners){
                 [self sendEventWithName:EVENT_DEVICE_FOUND body:@{@"device":idAndName}];
             }
         }
@@ -212,7 +212,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)address
         NSError *error = nil;
         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:devices options:NSJSONWritingPrettyPrinted error:&error];
         NSString * jsonStr = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        if(hasListeners){
+        if(isHasListeners){
             [self sendEventWithName:EVENT_DEVICE_DISCOVER_DONE body:@{@"found":jsonStr,@"paired":@"[]"}];
         }
         if(self.scanResolveBlock){
@@ -276,7 +276,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)address
         self.foundDevices = [[NSMutableDictionary alloc] init];
     }
     [self.foundDevices addEntriesFromDictionary:peripheralStored];
-    if(hasListeners){
+    if(isHasListeners){
         [self sendEventWithName:EVENT_DEVICE_FOUND body:@{@"device":idAndName}];
     }
     if(_waitingConnect && [_waitingConnect isEqualToString: peripheral.identifier.UUIDString]){
@@ -297,7 +297,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)address
         self.connectResolveBlock = nil;
     }
        NSLog(@"going to emit EVENT_CONNECTED.");
-    if(hasListeners){
+    if(isHasListeners){
         [self sendEventWithName:EVENT_CONNECTED body:@{@"device":@{@"name":peripheral.name?peripheral.name:@"",@"address":peripheral.identifier.UUIDString}}];
     }
 }
@@ -312,12 +312,12 @@ RCT_EXPORT_METHOD(connect:(NSString *)address
             _waitingConnect=nil;
         }
         connected = nil;
-        if(hasListeners){
+        if(isHasListeners){
             [self sendEventWithName:EVENT_UNABLE_CONNECT body:@{@"name":peripheral.name?peripheral.name:@"",@"address":peripheral.identifier.UUIDString}];
         }
     }else{
         connected = nil;
-        if(hasListeners){
+        if(isHasListeners){
             [self sendEventWithName:EVENT_CONNECTION_LOST body:nil];
         }
     }
@@ -332,7 +332,7 @@ RCT_EXPORT_METHOD(connect:(NSString *)address
         _waitingConnect = nil;
     }
     connected = nil;
-    if(hasListeners){
+    if(isHasListeners){
         [self sendEventWithName:EVENT_UNABLE_CONNECT body:@{@"name":peripheral.name?peripheral.name:@"",@"address":peripheral.identifier.UUIDString}];
     }
 }
